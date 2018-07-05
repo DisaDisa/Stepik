@@ -33,7 +33,7 @@ private:
     
 };
 
-int nod(int n, int m) {
+int gcd(int n, int m) {
     while (n != 0 && m != 0) {
         n %= m;
         int k = n;
@@ -43,14 +43,16 @@ int nod(int n, int m) {
     return n + m;
 }
     
-int nok(int n, int m) {
-    return n / nod(n, m) * m;
+int lcm(int n, int m) {
+    return n / gcd(n, m) * m;
 }
 
 Rational operator+(Rational lhs, Rational rhs);
 Rational operator-(Rational lhs, Rational rhs);
 Rational operator*(Rational lhs, Rational rhs);
 Rational operator/(Rational lhs, Rational rhs);
+
+
 bool operator==(Rational const& r1, Rational const& r2) {
     return r1.numerator_ * r2.denominator_ == r1.denominator_ * r2.numerator_;
 }
@@ -60,8 +62,8 @@ bool operator!=(Rational const& r1, Rational const& r2) {
 }
 
 bool operator<(Rational const& r1, Rational const& r2) {
-    int NOK = nok(r1.denominator_, r2.denominator_);
-    return r1.numerator_ * (NOK / r1.denominator_) < r2.numerator_ * (NOK / r2.denominator_);
+    int lcm = lcm(r1.denominator_, r2.denominator_);
+    return r1.numerator_ * (lcm / r1.denominator_) < r2.numerator_ * (lcm / r2.denominator_);
 }
 
 bool operator>(Rational const& r1, Rational const& r2) {
